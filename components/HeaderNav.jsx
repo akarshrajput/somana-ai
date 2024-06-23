@@ -1,6 +1,7 @@
 import React from "react";
 import BaseButton from "./buttons/BaseButton";
 import { SignIn } from "@phosphor-icons/react/dist/ssr";
+import TextButton from "./buttons/TextButton";
 
 const HeaderNav = () => {
   return (
@@ -15,10 +16,10 @@ const HeaderNav = () => {
         GPT-3.5
         {/* <OpenAiLogo weight="regular" className="size-4" /> */}
       </BaseButton>
-      <BaseButton className="bg-indigo-800 hover:bg-indigo-900">
+      <TextButton className="bg-indigo-500 hover:bg-indigo-600">
         Login
         <SignIn className="size-4" weight="bold" />
-      </BaseButton>
+      </TextButton>
     </div>
   );
 };
