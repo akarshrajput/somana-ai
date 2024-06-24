@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   Circle,
+  Headset,
   Play,
   Spinner,
   Stop,
@@ -145,7 +146,9 @@ const AskAI = () => {
         <div className="self-end flex items-center gap-2 px-2">
           {listening && (
             <div className="flex items-center gap-2">
-              <Circle className="size-4 animate-ping mr-4" weight="bold" />
+              {/* <Circle className="size-4 animate-ping mr-4" weight="bold" /> */}
+              <Headset weight="bold" className="size-5" />
+              ... listening
             </div>
           )}
           <button

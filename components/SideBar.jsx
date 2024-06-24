@@ -6,6 +6,13 @@ const SideBar = () => {
     <div className="p-4 font-medium w-full h-full">
       <div className="flex flex-col gap-2 h-full ">
         <div className="flex flex-col gap-2">
+          <p className="border-l-4 pl-1 border-orange-600">
+            Click on Start to play simulation
+          </p>
+          <p>
+            <mark className=" bg-transparent text-orange-600">WARNING :</mark>{" "}
+            avilable on chrome only !
+          </p>
           <p>
             SOMANA Gen-5-B model :
             <mark className=" bg-transparent text-orange-600"> TEST PHASE</mark>
