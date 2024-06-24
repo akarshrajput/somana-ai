@@ -45,7 +45,7 @@ const AskAI = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          prompt: `${transcript}`,
+          prompt: `Always give prompt response in HTML format without any special characters if not required. Prompt - ${transcript}`,
         }),
       });
 
