@@ -45,7 +45,7 @@ const AskAI = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          prompt: `Always respond within 100 to 200 words. Give only required prompt answer. Your name is Somana version 1.0.2. After giving answer, if required chat with user. Prompt -  ${transcript}`,
+          prompt: `${transcript}`,
         }),
       });
 
