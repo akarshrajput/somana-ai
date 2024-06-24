@@ -17,11 +17,11 @@ export default function RootLayout({ children }) {
         <header className="sticky top-0 left-0 right-0 w-full z-50">
           <Header />
         </header>
-        <div className="flex flex-grow ">
-          <aside className="w-1/5  h-full">
+        <div className="grid grid-cols-5 h-full">
+          <aside className="sticky left-0 bottom-0 h-full col-span-1">
             <SideBar />
           </aside>
-          <main className="flex-grow  overflow-auto">{children}</main>
+          <main className="flex-grow overflow-auto col-span-4">{children}</main>
         </div>
       </body>
     </html>

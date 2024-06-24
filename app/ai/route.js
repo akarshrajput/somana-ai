@@ -12,7 +12,9 @@ export async function POST(req) {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     // Generate content based on the prompt
-    const result = await model.generateContent(prompt);
+    const result = await model.generateContent(
+      `${prompt} \n\nPlease provide the response in HTML format and except of html I do not want any other special character in response except code of Computer`
+    );
     const response = await result.response;
     const text = await response.text();
 

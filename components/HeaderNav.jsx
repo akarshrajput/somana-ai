@@ -9,14 +9,14 @@ const HeaderNav = () => {
       <BaseButton>Token</BaseButton>
       <BaseButton>Credits</BaseButton>
       <BaseButton>Developer</BaseButton>
-      <BaseButton className=" bg-pink-600 hover:bg-pink-700">
+      <BaseButton className=" bg-pink-700 hover:bg-pink-600">
         Somana-2.0.1
       </BaseButton>
       <BaseButton>
         GPT-3.5
         {/* <OpenAiLogo weight="regular" className="size-4" /> */}
       </BaseButton>
-      <TextButton className="bg-indigo-600 hover:bg-indigo-600">
+      <TextButton className="bg-purple-700 hover:bg-purple-600">
         Login
         <SignIn className="size-4" weight="bold" />
       </TextButton>

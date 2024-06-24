@@ -3,9 +3,20 @@ import { Binoculars, Package } from "@phosphor-icons/react/dist/ssr";
 import TextButton from "./buttons/TextButton";
 const SideBar = () => {
   return (
-    <div className="p-3 font-medium h-full">
+    <div className="p-4 font-medium w-full h-full">
       <div className="flex flex-col gap-2 h-full ">
         <div className="flex flex-col gap-2">
+          <p>
+            SOMANA Gen-5-B model :
+            <mark className=" bg-transparent text-orange-600"> TEST PHASE</mark>
+          </p>
+          <p>
+            Powered by :
+            <mark className=" bg-transparent text-orange-600">
+              {" "}
+              GEMINI [ Alphabet ]
+            </mark>
+          </p>
           <BaseButton className="justify-center bg-purple-600 hover:bg-purple-700">
             Somana services
             <Package weight="bold" />
@@ -14,7 +25,30 @@ const SideBar = () => {
             Explore
             <Binoculars weight="bold" />
           </BaseButton>
-          <p className="justify-center">History</p>
+          <div className="border flex flex-col h-80 border-stone-600 overflow-hidden rounded-md">
+            <p className="justify-center text-center bg-stone-200 text-stone-800">
+              History
+            </p>
+            <div className="p-1">
+              <p className="bg-stone-800 p-0.5 rounded-sm">
+                Hi Sonama how are you?
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <BaseButton className="justify-center bg-purple-600 hover:bg-purple-700">
+            Somana services
+            <Package weight="bold" />
+          </BaseButton>
+          <BaseButton className="justify-center bg-purple-600 hover:bg-purple-700">
+            Somana services
+            <Package weight="bold" />
+          </BaseButton>
+          <BaseButton className="justify-center bg-purple-600 hover:bg-purple-700">
+            Somana services
+            <Package weight="bold" />
+          </BaseButton>
         </div>
 
         <div className="mt-auto grid grid-cols-2 gap-2 ">

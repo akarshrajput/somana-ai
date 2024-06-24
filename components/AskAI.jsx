@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Circle,
   Play,
@@ -15,17 +15,25 @@ const AskAI = () => {
   const [transcript, setTranscript] = useState("");
   const [interimTranscript, setInterimTranscript] = useState("");
 
-  const [response, setResponse] = useState("");
   const [loadingResponse, setLoadingResponse] = useState(false);
 
-  const [chatHistory, setChatHistory] = useState("");
-  const [shouldRestartListening, setShouldRestartListening] = useState(false); // New state to track if the mic should restart
+  const [chatHistory, setChatHistory] = useState([]);
+  const [shouldRestartListening, setShouldRestartListening] = useState(false);
+
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
     if (!listening && transcript) {
       handleGenerate();
     }
   }, [listening, transcript]);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory]);
 
   const handleGenerate = async () => {
     try {
@@ -47,19 +55,24 @@ const AskAI = () => {
       const data = await res.json();
       const newResponse = data.text;
 
-      setChatHistory(
-        (prev) => `${prev}\nUser: ${transcript}\nAI: ${newResponse}`
-      );
-      setResponse((prev) => `${prev}\n${newResponse}`);
+      setChatHistory((prev) => [
+        ...prev,
+        { type: "user", text: transcript },
+        { type: "ai", text: newResponse },
+      ]);
       setTranscript("");
     } catch (error) {
       console.error("Failed to fetch:", error);
-      setResponse("Failed to generate text.");
+      setChatHistory((prev) => [
+        ...prev,
+        { type: "user", text: transcript },
+        { type: "ai", text: "Failed to generate text." },
+      ]);
     } finally {
       setLoadingResponse(false);
       if (shouldRestartListening) {
-        setListening(true); // Restart the microphone if it should restart
-        setShouldRestartListening(false); // Reset the flag
+        setListening(true);
+        setShouldRestartListening(false);
       }
     }
   };
@@ -70,23 +83,27 @@ const AskAI = () => {
 
   const handleStopListening = () => {
     setListening(false);
-    setInterimTranscript(""); // Clear interim transcript when stopping
-    setShouldRestartListening(true); // Set the flag to restart listening
+    setInterimTranscript("");
+    setShouldRestartListening(true);
   };
 
   const handleStopAll = () => {
     setListening(false);
     setTranscript("");
     setInterimTranscript("");
-    setShouldRestartListening(false); // Ensure the flag is reset
+    setShouldRestartListening(false);
   };
 
   return (
-    <div className="mt-auto flex p-3 flex-col w-full h-full">
+    <div className="mt-auto flex p-2 flex-col w-full h-full">
       <div className="p-2 flex flex-col rounded-md gap-2 h-full">
         <div className="w-full flex flex-col gap-2 resize-none rounded-md outline-none h-full p-2 text-stone-300 bg-stone-900">
           <div className="flex items-center gap-2">
-            <TextToSpeechComponent text={`Somana speaking ${chatHistory}`} />
+            <TextToSpeechComponent
+              text={`Somana speaking ${chatHistory
+                .map((entry) => entry.text)
+                .join(" ")}`}
+            />
             {loadingResponse && (
               <div className="flex items-center gap-2 ml-auto">
                 <p>Generating</p>
@@ -95,12 +112,27 @@ const AskAI = () => {
             )}
           </div>
 
-          <textarea
-            className="resize-none font-medium h-full outline-none cursor-default bg-stone-950 p-2 rounded-md"
-            readOnly
-            value={chatHistory}
-            placeholder="Dashboard"
-          />
+          <div
+            ref={chatContainerRef}
+            className="flex flex-col gap-2 h-[32rem] overflow-y-auto bg-stone-950 p-2 rounded-md text-stone-300"
+          >
+            {chatHistory.map((entry, index) => (
+              <div
+                key={index}
+                className={`flex ${
+                  entry.type === "user" ? "justify-end" : "justify-start"
+                }`}
+              >
+                <div
+                  className={`p-2 rounded-md max-w-2xl ${
+                    entry.type === "user" ? " text-white" : " text-stone-300"
+                  }`}
+                  dangerouslySetInnerHTML={{ __html: entry.text }}
+                ></div>
+              </div>
+            ))}
+          </div>
+
           <textarea
             rows={1}
             className="resize-none bg-stone-950 outline-none cursor-default mt-auto p-1 rounded-md"
@@ -109,7 +141,7 @@ const AskAI = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-2 mt-auto ">
+      <div className="flex flex-col gap-2 mt-auto">
         <div className="self-end flex items-center gap-2 px-2">
           {listening && (
             <div className="flex items-center gap-2">
@@ -132,17 +164,11 @@ const AskAI = () => {
             <Stop weight="fill" />
             Stop
           </button>
-          {/* <button
-            onClick={handleStopAll}
-            className="font-medium flex items-center gap-2 py-1 px-4 bg-red-600 rounded-sm"
-          >
-            Stop All
-          </button> */}
         </div>
         <div className="px-2 py-0 w-full">
           <textarea
             rows={4}
-            className="resize-none bg-stone-900 w-full outline-none  mt-auto p-2 rounded-md border border-stone-600"
+            className="resize-none bg-stone-900 w-full outline-none mt-auto p-2 rounded-md border border-stone-600"
             placeholder="Chat with AI..."
           />
         </div>
@@ -154,24 +180,6 @@ const AskAI = () => {
             <Upload />
             Send
           </button>
-          {/* <button className="font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
-            Voice
-          </button>
-          <button className="font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
-            Upload File
-          </button>
-          <button className="cursor-not-allowed font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
-            Somana IBR
-          </button>
-          <button className="cursor-not-allowed font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
-            Somana MBR
-          </button>
-          <button className="cursor-not-allowed font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
-            Somana VBR
-          </button>
-          <button className="font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
-            Services
-          </button> */}
           <p className="ml-auto font-medium text-sm bg-stone-100 text-stone-950 py-0.5 px-3 rounded-md">
             Copyright by Akarsh Rajput
           </p>
