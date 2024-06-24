@@ -5,7 +5,7 @@ import TextButton from "./buttons/TextButton";
 
 const HeaderNav = () => {
   return (
-    <div className="ml-auto flex items-center gap-2">
+    <div className="ml-auto flex items-center font-medium gap-2">
       <BaseButton>Token</BaseButton>
       <BaseButton>Credits</BaseButton>
       <BaseButton>Developer</BaseButton>
@@ -16,7 +16,7 @@ const HeaderNav = () => {
         GPT-3.5
         {/* <OpenAiLogo weight="regular" className="size-4" /> */}
       </BaseButton>
-      <TextButton className="bg-indigo-500 hover:bg-indigo-600">
+      <TextButton className="bg-indigo-600 hover:bg-indigo-600">
         Login
         <SignIn className="size-4" weight="bold" />
       </TextButton>

@@ -1,4 +1,9 @@
 "use client";
+import {
+  DownloadSimple,
+  SpeakerHifi,
+  SpeakerHigh,
+} from "@phosphor-icons/react/dist/ssr";
 import React, { useState, useEffect } from "react";
 
 const TextToSpeechComponent = ({ text }) => {
@@ -99,16 +104,18 @@ const TextToSpeechComponent = ({ text }) => {
   return (
     <div className="flex items-center gap-2">
       <button
-        className="py-0.5 px-2 rounded-md bg-green-800"
+        className="py-0.5 px-2 rounded-md bg-orange-800 flex items-center gap-2"
         onClick={handleSpeak}
       >
+        <SpeakerHigh />
         Speak
       </button>
       <button
-        className="py-0.5 px-2 rounded-md bg-green-800"
+        className="py-0.5 px-2 rounded-md bg-stone-600 flex items-center gap-2"
         onClick={handleDownload}
       >
-        Download as Sound File
+        <DownloadSimple />
+        Sound File
       </button>
     </div>
   );

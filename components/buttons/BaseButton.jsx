@@ -6,7 +6,7 @@ const BaseButton = ({ href = "", className = "", children = "" }) => {
     <div>
       <Link
         href={href}
-        className={`flex items-center bg-stone-800 hover:bg-stone-700 gap-2 py-1.5 px-2.5 rounded-md ${className}`}
+        className={`flex items-center bg-stone-900 hover:bg-stone-700 gap-2 py-1.5 px-2.5 rounded-md ${className}`}
       >
         {children}
       </Link>

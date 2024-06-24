@@ -1,6 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Circle, Spinner } from "@phosphor-icons/react/dist/ssr";
+import {
+  Circle,
+  Play,
+  Spinner,
+  Stop,
+  Upload,
+} from "@phosphor-icons/react/dist/ssr";
 import SpeechRecognitionComponent from "./speechRecognition";
 import TextToSpeechComponent from "./TextToSpeechComponent";
 
@@ -29,7 +35,9 @@ const AskAI = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: transcript }),
+        body: JSON.stringify({
+          prompt: `Always respond within 100 to 200 words. Give only required prompt answer. Your name is Somana version 1.0.2. After giving answer, if required chat with user. Prompt -  ${transcript}`,
+        }),
       });
 
       if (!res.ok) {
@@ -88,21 +96,21 @@ const AskAI = () => {
           </div>
 
           <textarea
-            className="resize-none h-full bg-stone-950 mt-auto p-2 rounded-md"
+            className="resize-none font-medium h-full outline-none cursor-default bg-stone-950 p-2 rounded-md"
             readOnly
             value={chatHistory}
-            placeholder="Chat history will be displayed here..."
+            placeholder="Dashboard"
           />
           <textarea
             rows={1}
-            className="resize-none bg-indigo-400/20 mt-auto p-1 rounded-md"
+            className="resize-none bg-stone-950 outline-none cursor-default mt-auto p-1 rounded-md"
             value={transcript + interimTranscript}
             readOnly
           />
         </div>
       </div>
-      <div className="flex flex-col gap-2 mt-auto">
-        <div className="self-end flex items-center gap-2">
+      <div className="flex flex-col gap-2 mt-auto ">
+        <div className="self-end flex items-center gap-2 px-2">
           {listening && (
             <div className="flex items-center gap-2">
               <Circle className="size-4 animate-ping mr-4" weight="bold" />
@@ -111,32 +119,42 @@ const AskAI = () => {
           <button
             onClick={handleStartListening}
             disabled={listening}
-            className="font-medium flex items-center gap-2 py-1.5 px-4 bg-indigo-600 rounded-md"
+            className="font-medium flex items-center gap-2 py-1 px-2 bg-indigo-600 rounded-md"
           >
+            <Play weight="fill" />
             Start
           </button>
           <button
             onClick={handleStopListening}
             disabled={!listening}
-            className="font-medium flex items-center gap-2 py-1.5 px-4 bg-red-600 rounded-md"
+            className="font-medium flex items-center gap-2 py-1 px-2 bg-red-600 rounded-md"
           >
+            <Stop weight="fill" />
             Stop
           </button>
-          <button
+          {/* <button
             onClick={handleStopAll}
-            className="font-medium flex items-center gap-2 py-1.5 px-4 bg-red-600 rounded-md"
+            className="font-medium flex items-center gap-2 py-1 px-4 bg-red-600 rounded-sm"
           >
             Stop All
-          </button>
+          </button> */}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="px-2 py-0 w-full">
+          <textarea
+            rows={4}
+            className="resize-none bg-stone-900 w-full outline-none  mt-auto p-2 rounded-md border border-stone-600"
+            placeholder="Chat with AI..."
+          />
+        </div>
+        <div className="flex items-center gap-2 py-0 px-2">
           <button
             onClick={handleGenerate}
-            className="font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md"
+            className="font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-emerald-700 rounded-md"
           >
+            <Upload />
             Send
           </button>
-          <button className="font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
+          {/* <button className="font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
             Voice
           </button>
           <button className="font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
@@ -153,7 +171,7 @@ const AskAI = () => {
           </button>
           <button className="font-medium flex items-center gap-2 self-start py-1.5 px-4 bg-indigo-600 rounded-md">
             Services
-          </button>
+          </button> */}
           <p className="ml-auto font-medium text-sm bg-stone-100 text-stone-950 py-0.5 px-3 rounded-md">
             Copyright by Akarsh Rajput
           </p>

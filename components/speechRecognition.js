@@ -21,10 +21,10 @@ const SpeechRecognitionComponent = ({
       recognitionRef.current = recognition;
 
       recognition.onresult = (event) => {
-        clearTimeout(inactivityTimerRef.current); // Clear the timer on every result
+        clearTimeout(inactivityTimerRef.current);
         inactivityTimerRef.current = setTimeout(() => {
           recognition.stop();
-        }, 2000); // Set timer for 3 seconds of inactivity
+        }, 1000);
 
         let finalTranscript = "";
         let interimTranscript = "";
