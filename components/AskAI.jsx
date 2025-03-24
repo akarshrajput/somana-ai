@@ -100,11 +100,7 @@ const AskAI = () => {
       <div className="p-2 flex flex-col rounded-md gap-2 h-full">
         <div className="w-full flex flex-col gap-2 resize-none rounded-md outline-none h-full p-2 text-stone-300 bg-stone-900">
           <div className="flex items-center gap-2">
-            <TextToSpeechComponent
-              text={`Somana speaking ${chatHistory
-                .map((entry) => entry.text)
-                .join(" ")}`}
-            />
+            
             {loadingResponse && (
               <div className="flex items-center gap-2 ml-auto">
                 <p>Generating</p>
