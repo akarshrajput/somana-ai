@@ -101,7 +101,7 @@ const AskAI = () => {
         <div className="w-full flex flex-col gap-2 resize-none rounded-md outline-none h-full p-2 text-stone-300 bg-stone-900">
           <div className="flex items-center gap-2">
             <TextToSpeechComponent
-              text={`Somana speaking ${chatHistory
+              text={`Somana is speaking ${chatHistory
                 .map((entry) => entry.text)
                 .join(" ")}`}
             />
